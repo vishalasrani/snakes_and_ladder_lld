@@ -24,7 +24,6 @@ class Board:
 
     def initialize_snakes(self, board_size):
         total_snakes = int(input("Enter total number of Snakes: "))
-
         index = 1
         while index <= total_snakes:
             snake_head = int(input("Enter snake start position: "))
@@ -34,7 +33,7 @@ class Board:
             else:
                 snake_obj = Jump(snake_head, snake_tail)
                 cell = self.get_cell(snake_head)
-                cell.jump = snake_obj
+                cell.set_jump(snake_obj)
                 index += 1
 
     def initialize_ladders(self, board_size):
@@ -43,17 +42,10 @@ class Board:
         while index <= total_snakes:
             ladder_start = int(input("Enter ladder start position: "))
             ladder_end = int(input("Enter ladder end position: "))
-            if ladder_start >= ladder_end or ladder_start <= 0:
-                print("Start of Ladder must be less than end and greater than 0")
+            if ladder_start >= ladder_end or ladder_start <= 0 or ladder_end >= board_size * board_size or ladder_start <0:
+                print("Start of Ladder must be less than end and in the range of 0-%s" % (board_size * board_size -1))
             else:
                 ladder_obj = Jump(ladder_start, ladder_end)
                 cell = self.get_cell(ladder_start)
-                cell.jump = ladder_obj
+                cell.set_jump(ladder_obj)
                 index += 1
-
-
-
-
-
-
-

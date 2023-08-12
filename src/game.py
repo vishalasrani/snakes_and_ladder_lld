@@ -17,7 +17,6 @@ class Game:
         self.add_dices()
         self.add_players()
 
-
     def add_board(self):
         board_size = int(input("Enter Board Size: "))
         self.board = Board(board_size)
@@ -37,8 +36,8 @@ class Game:
         while self.winner is None:
             player = self.find_player_turn()
             dice_number = self.dice.roll_dice()
-            print("Player %s, current_position: %s, dice: %s" % (player.player_id, player.current_position, dice_number))
-            player_new_position = player.current_position + dice_number
+            print("Player %s, current_position: %s, dice: %s" % (player.player_id, player.get_current_position(), dice_number))
+            player_new_position = player.get_current_position() + dice_number
             print("Player %s, new_position: %s" % (player.player_id, player_new_position))
             player_new_position = self.check_jump(player_new_position)
             print("Player %s, new_position: %s" % (player.player_id, player_new_position))
@@ -60,10 +59,11 @@ class Game:
             return position
 
         cell = self.board.get_cell(position)
-        if cell.jump and cell.jump.start == position:
-            if cell.jump.start > cell.jump.end:
+        if cell.get_jump() and cell.get_jump().get_jump_start() == position:
+            jump = cell.get_jump()
+            if jump.get_jump_start() > jump.get_jump_end():
                 print("Jump done by Snake")
             else:
                 print("Jump done by Ladder")
-            return cell.jump.end
+            return jump.get_jump_end()
         return position

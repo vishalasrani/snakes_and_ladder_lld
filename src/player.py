@@ -12,4 +12,7 @@ class Player:
     def set_current_position(self, position):
         self.current_position = position
         return
+
+    def get_current_position(self):
+        return self.current_position
     
